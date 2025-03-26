@@ -10,17 +10,21 @@
   </head>
   <body>
     <header>
-      <h1>
-        Issue Tracker
-      </h1>
+      <h1>Issue Tracker</h1>
     </header>
-    <section style="margin: 0 50px;">
-      <h3>Example <code>GET</code> usage</h3>
-      <code>/api/issues/{project}</code><br>
-      <code>/api/issues/{project}?open=true&amp;assigned_to=Joe</code><br>
-      <h3>Example return</h3>
-      <pre>
-<code>[
+    
+    <section class="api-documentation">
+      <h2>API Documentation</h2>
+      
+      <div class="doc-section">
+        <h3>Example <code>GET</code> usage</h3>
+        <p><code>/api/issues/{project}</code></p>
+        <p><code>/api/issues/{project}?open=true&amp;assigned_to=Joe</code></p>
+      </div>
+      
+      <div class="doc-section">
+        <h3>Example Return Response</h3>
+        <pre><code>[
   { 
     "_id": "5871dda29faedc3491ff93bb",
     "issue_title": "Fix error in posting data",
@@ -33,44 +37,61 @@
     "status_text": "In QA"
   },
   ...
- ]
-</code>
-</pre>
+]</code></pre>
+      </div>
     </section>
-    <hr style='margin: 0 50px'>
-    <section id='testui' style='margin-left: 50px;'>
-      <h3>Examples</h3>
-      Go to <a href='/api/issues/apitest/'><code>/api/issues/apitest/</code></a>  project
-      <h2 style="text-align: left">API Tests</h2>
-      <h3>Submit issue on <i>apitest</i></h3>
-      <form id="testForm" class="border">
-        <input type="text" name="issue_title" placeholder="*Title" style="width: 100px" required=''><br>
-        <textarea type="text" name="issue_text" placeholder="*Text" style="width: 100px" required=''></textarea><br>
-        <input type="text" name="created_by" placeholder="*Created by" style="width: 100px" required=''><br>
-        <input type="text" name="assigned_to" placeholder="(opt)Assigned to" style="width: 100px"><br>
-        <input type="text" name="status_text" placeholder="(opt)Status text" style="width: 100px"><br>
-        <button type="submit">Submit Issue</button>
-      </form><br>
-      <h3>Update issue on <i>apitest</i> (Change any or all to update issue on the _id supplied)</h3>
-      <form id="testForm2" class="border">
-        <input type="text" name="_id" placeholder="*_id" style="width: 100px" required=''><br>
-        <input type="text" name="issue_title" placeholder="(opt)Title" style="width: 100px"><br>
-        <textarea type="text" name="issue_text" placeholder="(opt)Text" style="width: 100px"></textarea><br>
-        <input type="text" name="created_by" placeholder="(opt)Created by" style="width: 100px"><br>
-        <input type="text" name="assigned_to" placeholder="(opt)Assigned to" style="width: 100px"><br>
-        <input type="text" name="status_text" placeholder="(opt)Status text" style="width: 100px"><br>
-        <label><input type="checkbox" name="open" value="false"> Check to close issue</label><br>
-        <button type="submit">Submit Issue</button>
-      </form><br>
-      <h3>Delete issue on <i>apitest</i></h3>
-      <form id="testForm3" class="border">
-        <input type="text" name="_id" placeholder="_id" style="width: 100px" required=''><br>
-        <button type="submit">Delete Issue</button>
-      </form>
-      <code id='jsonResult'></code>
+    
+    <hr>
+    
+    <section id='testui'>
+      <h2>Test the API</h2>
+      <p>Go to <a href='/api/issues/apitest/'><code>/api/issues/apitest/</code></a> project to see issues</p>
+      
+      <div class="test-section">
+        <h3>Submit Issue on <span class="project-name">apitest</span></h3>
+        <form id="testForm" class="border">
+          <input type="text" name="issue_title" placeholder="*Title" required=''>
+          <textarea type="text" name="issue_text" placeholder="*Text" required=''></textarea>
+          <input type="text" name="created_by" placeholder="*Created by" required=''>
+          <input type="text" name="assigned_to" placeholder="(opt)Assigned to">
+          <input type="text" name="status_text" placeholder="(opt)Status text">
+          <button type="submit">Submit Issue</button>
+        </form>
+      </div>
+      
+      <div class="test-section">
+        <h3>Update Issue on <span class="project-name">apitest</span></h3>
+        <p class="help-text">Change any or all fields to update issue on the _id supplied</p>
+        <form id="testForm2" class="border">
+          <input type="text" name="_id" placeholder="*_id" required=''>
+          <input type="text" name="issue_title" placeholder="(opt)Title">
+          <textarea type="text" name="issue_text" placeholder="(opt)Text"></textarea>
+          <div style="display: flex; gap: 15px;">
+            <input type="text" name="created_by" placeholder="(opt)Created by">
+            <input type="text" name="assigned_to" placeholder="(opt)Assigned to">
+            <input type="text" name="status_text" placeholder="(opt)Status text">
+          </div>
+          <div class="checkbox-wrapper">
+            <label><input type="checkbox" name="open" value="false"> Check to close issue</label>
+          </div>
+          <button type="submit">Update Issue</button>
+        </form>
+      </div>
+      
+      <div class="test-section">
+        <h3>Delete Issue on <span class="project-name">apitest</span></h3>
+        <form id="testForm3" class="border">
+          <input type="text" name="_id" placeholder="*_id" required=''>
+          <button type="submit">Delete Issue</button>
+        </form>
+      </div>
+      
+      <div class="response-section">
+        <h3>API Response:</h3>
+        <code id='jsonResult'></code>
+      </div>
     </section>
-    <hr style='margin: 50px; margin-top: 200px'>
-    <!-- Your web-app is https, so your scripts need to be too -->
+    
     <script src="https://code.jquery.com/jquery-2.2.1.min.js"
             integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
             crossorigin="anonymous"></script>
@@ -82,31 +103,35 @@
             type: 'post',
             data: $('#testForm').serialize(),
             success: function(data) {
-              $('#jsonResult').text(JSON.stringify(data));
+              $('#jsonResult').text(JSON.stringify(data, null, 2));
             }
           });
           e.preventDefault();
         });
+        
         $('#testForm2').submit(function(e) {
           $.ajax({
             url: '/api/issues/apitest',
             type: 'put',
             data: $('#testForm2').serialize(),
             success: function(data) {
-              $('#jsonResult').text(JSON.stringify(data));
+              $('#jsonResult').text(JSON.stringify(data, null, 2));
             }
           });
           e.preventDefault();
         });
+        
         $('#testForm3').submit(function(e) {
-          $.ajax({
-            url: '/api/issues/apitest',
-            type: 'delete',
-            data: $('#testForm3').serialize(),
-            success: function(data) {
-              $('#jsonResult').text(JSON.stringify(data));
-            }
-          });
+          if (confirm('Are you sure you want to delete this issue?')) {
+            $.ajax({
+              url: '/api/issues/apitest',
+              type: 'delete',
+              data: $('#testForm3').serialize(),
+              success: function(data) {
+                $('#jsonResult').text(JSON.stringify(data, null, 2));
+              }
+            });
+          }
           e.preventDefault();
         });
       });
